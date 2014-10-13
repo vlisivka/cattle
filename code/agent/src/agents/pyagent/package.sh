@@ -12,7 +12,7 @@ python_deps()
     VER=$(pip --version | awk '{print $2}')
     MAJOR=$(echo $VER | cut -f1 -d.)
     MINOR=$(echo $VER | cut -f2 -d.)
-    if [ $MAJOR -lt 2 ] && [ $MINOR -lt 5 ]
+    if [ ${MAJOR:-0} -lt 2 ] && [ ${MINOR:-0} -lt 5 ]
     then
         echo "[ERROR] !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" 1>&2
         echo "[ERROR] !! pip 1.5 or newer is required !!" 1>&2
