@@ -29,6 +29,7 @@ public class Bootstrap implements Closeable {
 
     boolean war = false;
     URL[] classpath = null;
+    URLClassLoader cl = null;
     File home = null;
     File libDir = null;
     File tempDir = null;
@@ -380,7 +381,7 @@ public class Bootstrap implements Closeable {
             determineClasspath();
 
             System.out.println("[BOOTSTRAP] Launching Cattle from " + Arrays.toString(classpath));
-            URLClassLoader cl = new URLClassLoader(classpath, Bootstrap.class.getClassLoader());
+            cl = new URLClassLoader(classpath, Bootstrap.class.getClassLoader());
             Class<?> mainClass = cl.loadClass(MAIN);
             Method m = mainClass.getMethod("main", String[].class);
             m.invoke(mainClass, new Object[] { args });
@@ -399,6 +400,10 @@ public class Bootstrap implements Closeable {
         if ( tempDir != null && tempDir.exists() ) {
             delete(tempDir);
             tempDir = null;
+        }
+        
+        if ( cl != null ) {
+        	cl.close();
         }
     }
 
