@@ -12,6 +12,7 @@ import java.util.Set;
 
 public class CollectionUtils {
 
+	@SafeVarargs
     public static <T> Set<T> set(T... objects) {
         Set<T> set = new HashSet<T>();
         for ( T obj : objects) {
